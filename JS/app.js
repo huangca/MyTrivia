@@ -54,6 +54,8 @@ function showQuestion(){
     const button=document.createElement('button');
     button.innerText=answer.text;
     button.classList.add('btn');
+    button.classList.add('btn-primary');
+    button.classList.add('btn-lg');
     button.style.fontSize = "large";
     if(answer.correct){
       button.dataset.correct=answer.correct;
@@ -106,9 +108,11 @@ function selectAnswer(e){
 function setStatusClass(element,correct){
   clearStatusClass(element);
   if(correct){
-    element.classList.add('correct');
+    element.classList.remove('btn-primary');
+    element.classList.add('btn-success');
   }else{
-    element.classList.add('wrong');
+    element.classList.remove('btn-primary');
+    element.classList.add('btn-danger');
   }
 }
 
