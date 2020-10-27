@@ -16,11 +16,11 @@ nextButton.addEventListener('click',()=>{
 resultButton.addEventListener('click',resultPage);
 
 function startGame(){
-	console.log('start function run'); //debug print
+	//console.log('start function run'); //debug print
 	loadJSON(function(response) {
   questionData=JSON.parse(response).sort(()=>Math.random()-.5); //shuffled questions
     //questionData=JSON.parse(response);
-    console.log(questionData); // this will log out the json object
+    //console.log(questionData); // this will log out the json object
     currentQuestion=0;
     score=0;
 
@@ -76,7 +76,7 @@ function resetScore(){
 }
 
 function selectAnswer(e){
-  console.log('cleck answer button');
+  //console.log('cleck answer button');//debug
   const selectButton=e.target;
   const correct=selectButton.dataset.correct;
   let tempProcess=document.getElementById(currentQuestion);
@@ -86,7 +86,7 @@ function selectAnswer(e){
   }else{
     tempProcess.classList.add('wrong');
   }
-  console.log(score); //debug
+  //console.log(score); //debug
   //setStatusClass(document.body,correct);
   Array.from(answerButton.children).forEach(button=>{
     setStatusClass(button,button.dataset.correct);
