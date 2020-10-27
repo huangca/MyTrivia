@@ -1,6 +1,8 @@
 const startButton = document.getElementById('start-btn');
 const nextButton=document.getElementById('next-btn');
 const resultButton=document.getElementById('result-btn');
+const skipButton=document.getElementById('skip-btn');
+const fiftyButton=document.getElementById('50-btn');
 const questionContainer = document.getElementById('question-container');
 const questions=document.getElementById('question');
 const resultDisplay=document.getElementById('scoreContainer');
@@ -14,6 +16,8 @@ nextButton.addEventListener('click',()=>{
   setNextQuestion();
 });
 resultButton.addEventListener('click',resultPage);
+skipButton.addEventListener('click',skipQuestion);
+fiftyButton.addEventListener('click',fiftyFifty);
 
 function startGame(){
 	//console.log('start function run'); //debug print
@@ -24,7 +28,9 @@ function startGame(){
     currentQuestion=0;
     score=0;
 
-	  startButton.classList.add('hide');
+    startButton.classList.add('invisible');
+    skipButton.classList.remove('hide');
+    fiftyButton.classList.remove('hide');
     questionContainer.classList.remove('hide');
     answerTrogress();
     resetScore();
@@ -34,12 +40,18 @@ function startGame(){
 }
 
 function setNextQuestion(){
+  if(!skipButton.dataset.used){
+    skipButton.classList.remove('hide');
+  }
+  if(!fiftyButton.dataset.used){
+    fiftyButton.classList.remove('hide');
+  }
   resetState()
   showQuestion();
 }
 
 function showQuestion(){
-  //console.log(questionData[0]);
+  //console.log(questionData[0]);//debug
   questions.innerText=questionData[currentQuestion].question;
   question.style.fontSize = "x-large";
   //answers
@@ -81,6 +93,12 @@ function resetScore(){
 
 function selectAnswer(e){
   //console.log('cleck answer button');//debug
+  if(!skipButton.classList.contains('hide')){
+    skipButton.classList.add('hide');
+  }
+  if(!fiftyButton.classList.contains('hide')){
+    fiftyButton.classList.add('hide');
+  }
   const selectButton=e.target;
   const correct=selectButton.dataset.correct;
   let tempProcess=document.getElementById(currentQuestion);
@@ -133,12 +151,38 @@ function answerTrogress(){
   }
 }
 
+function skipQuestion(){
+  skipButton.dataset.used=true;
+  skipButton.classList.add('hide');
+  questionData.splice(currentQuestion, 1);
+  console.log(questionData);//debug
+  skipButton.classList.add()
+  setNextQuestion();
+}
+
+function fiftyFifty(){
+  fiftyButton.dataset.used=true;
+  fiftyButton.classList.add('hide');
+  let count=answerButton.childNodes.length;
+  //answerButton.childNodes;
+  let index=0;
+  while(count>=3){
+    if(!answerButton.childNodes[index].dataset.correct){
+      answerButton.childNodes[index].classList.add('invisible');
+      count--;
+    }
+    index++
+  }
+}
+
+
 function resultPage(){
   resultButton.classList.add('hide');
   while(answerButton.firstChild){
     answerButton.removeChild(answerButton.firstChild);
   }
-  questions.innerText=`you score is`;
+  //questions.innerText=`<h3>You score is</h3>`;
+  questions.innerHTML='<h3>You score is</h3>';
   let h = document.createElement("H1");
   let t = document.createTextNode(score+"0%");
   h.appendChild(t);
@@ -146,7 +190,7 @@ function resultPage(){
   resultDisplay.appendChild(h);
   resultDisplay.classList.remove('hide');
   startButton.innerText='Restart';
-  startButton.classList.remove('hide');
+  startButton.classList.remove('invisible');
 }
 
 

@@ -36,6 +36,9 @@ body.wrong {
   padding: 10px;
   box-shadow: 0 0 10px 2px;
 }
+.btnm{
+  margin: 20px;
+}
 
 .btn-grid {
   display: grid;
@@ -84,4 +87,8 @@ body.wrong {
 
 .hide {
   display: none;
+}
+
+.invisible{
+  visibility:hidden;
 }
