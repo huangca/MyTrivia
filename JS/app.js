@@ -41,6 +41,7 @@ function setNextQuestion(){
 function showQuestion(){
   //console.log(questionData[0]);
   questions.innerText=questionData[currentQuestion].question;
+  question.style.fontSize = "x-large";
   //answers
   let tempAanswerArray=[];
   questionData[currentQuestion].incorrect.forEach(element => {
@@ -53,6 +54,7 @@ function showQuestion(){
     const button=document.createElement('button');
     button.innerText=answer.text;
     button.classList.add('btn');
+    button.style.fontSize = "large";
     if(answer.correct){
       button.dataset.correct=answer.correct;
     }
