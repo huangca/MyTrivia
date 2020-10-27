@@ -30,9 +30,7 @@ body.wrong {
   --hue: var(--hue-wrong);
 }
 
-.container {
-  width: 800px;
-  max-width: 80%;
+.containerm {
   background-color: white;
   border-radius: 5px;
   padding: 10px;
