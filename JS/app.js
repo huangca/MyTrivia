@@ -8,10 +8,20 @@ const questions=document.getElementById('question');
 const resultDisplay=document.getElementById('scoreContainer');
 const answerButton=document.getElementById('answer-buttons');
 const progressDisplay=document.getElementById('progress');
-
+////timer
+const counter = document.getElementById("counter");
+const timeGauge = document.getElementById("timeGauge");
+const timerDiv=document.getElementById('timer');
+let TimeCount=15;
+let TIMER;
+const questionTime=15;
+const gaugeWidth=150;
+const gaugeUnit=gaugeWidth/questionTime;
+//
 let questionData,currentQuestion,score;
 startButton.addEventListener('click',startGame);
 nextButton.addEventListener('click',()=>{
+  TimeCount=15;
   currentQuestion++;
   setNextQuestion();
 });
@@ -20,11 +30,8 @@ skipButton.addEventListener('click',skipQuestion);
 fiftyButton.addEventListener('click',fiftyFifty);
 
 function startGame(){
-	//console.log('start function run'); //debug print
 	loadJSON(function(response) {
   questionData=JSON.parse(response).sort(()=>Math.random()-.5); //shuffled questions
-    //questionData=JSON.parse(response);
-    //console.log(questionData); // this will log out the json object
     currentQuestion=0;
     score=0;
 
@@ -33,6 +40,8 @@ function startGame(){
     fiftyButton.classList.remove('hide');
     questionContainer.classList.remove('hide');
     answerTrogress();
+    showTimer();
+    
     resetScore();
     setNextQuestion();
   });
@@ -51,17 +60,16 @@ function setNextQuestion(){
 }
 
 function showQuestion(){
-  //console.log(questionData[0]);//debug
+  TimeCount=15;
+  TIMER=setInterval(showTimer,1000); 
   questions.innerText=questionData[currentQuestion].question;
   question.style.fontSize = "x-large";
-  //answers
   let tempAanswerArray=[];
   questionData[currentQuestion].incorrect.forEach(element => {
     tempAanswerArray.push({text:element,correct:false});
   });
   tempAanswerArray.push({text:questionData[currentQuestion].correct,correct:true});
   tempAanswerArray.sort(()=>Math.random()-.5);
-  //console.log(tempAanswerArray); //debug print
   tempAanswerArray.forEach(answer=>{
     const button=document.createElement('button');
     button.innerText=answer.text;
@@ -75,6 +83,17 @@ function showQuestion(){
     button.addEventListener('click',selectAnswer);
     answerButton.appendChild(button);
   });
+}
+
+function showTimer(){
+  timerDiv.classList.remove('hide');
+  if(TimeCount>=0){
+    counter.innerHTML=TimeCount;
+    timeGauge.style.width=TimeCount*gaugeUnit+"px";
+    TimeCount--;
+  }else{
+    showJudgePage(false);
+  }
 }
 
 function resetState(){
@@ -92,24 +111,27 @@ function resetScore(){
 }
 
 function selectAnswer(e){
-  //console.log('cleck answer button');//debug
+  const selectButton=e.target;
+  const correct=selectButton.dataset.correct;
+  showJudgePage(correct);
+
+}
+
+function showJudgePage(judge){
+  clearInterval(TIMER);
   if(!skipButton.classList.contains('hide')){
     skipButton.classList.add('hide');
   }
   if(!fiftyButton.classList.contains('hide')){
     fiftyButton.classList.add('hide');
   }
-  const selectButton=e.target;
-  const correct=selectButton.dataset.correct;
   let tempProcess=document.getElementById(currentQuestion);
-  if(correct){
+  if(judge){
     tempProcess.classList.add('correct');
     score++;    
   }else{
     tempProcess.classList.add('wrong');
   }
-  //console.log(score); //debug
-  //setStatusClass(document.body,correct);
   Array.from(answerButton.children).forEach(button=>{
     setStatusClass(button,button.dataset.correct);
     button.disabled=true;
@@ -120,8 +142,8 @@ function selectAnswer(e){
     resultButton.classList.remove('hide');
   }
  
-
 }
+
 
 function setStatusClass(element,correct){
   clearStatusClass(element);
@@ -152,10 +174,10 @@ function answerTrogress(){
 }
 
 function skipQuestion(){
+  clearInterval(TIMER);
   skipButton.dataset.used=true;
   skipButton.classList.add('hide');
   questionData.splice(currentQuestion, 1);
-  console.log(questionData);//debug
   skipButton.classList.add()
   setNextQuestion();
 }
@@ -164,7 +186,6 @@ function fiftyFifty(){
   fiftyButton.dataset.used=true;
   fiftyButton.classList.add('hide');
   let count=answerButton.childNodes.length;
-  //answerButton.childNodes;
   let index=0;
   while(count>=3){
     if(!answerButton.childNodes[index].dataset.correct){
@@ -181,7 +202,6 @@ function resultPage(){
   while(answerButton.firstChild){
     answerButton.removeChild(answerButton.firstChild);
   }
-  //questions.innerText=`<h3>You score is</h3>`;
   questions.innerHTML='<h3>You score is</h3>';
   let h = document.createElement("H1");
   let t = document.createTextNode(score+"0%");

@@ -92,3 +92,26 @@ body.wrong {
 .invisible{
   visibility:hidden;
 }
+
+#timer{
+
+  text-align: center;
+  float: left;
+}
+#counter{
+  font-size: 3em;
+}
+#btimeGauge{
+  width : 150px;
+  height : 10px;
+  border-radius: 10px;
+  background-color: lightgray;
+  margin-left : 25px;
+}
+#timeGauge{
+  height : 10px;
+  border-radius: 10px;
+  background-color: mediumseagreen;
+  margin-top : -10px;
+  margin-left : 25px;
+}
