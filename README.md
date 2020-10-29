@@ -6,6 +6,8 @@ I choose to do a Trivia web application because web application is the most easy
 
 
 ## UI
+![UI1](/img/trivia_01.png)
+![UI1](/img/trivia_02.png)
 * Question:Show the question
 * Answers:Have 3 or 4 choices,click the answer you think is right.
 * Timer:For each question, player have 15 second to make a choice. Run out of time will be considered as click a wrong answer.
