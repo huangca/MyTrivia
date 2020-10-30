@@ -16,5 +16,10 @@ I choose to do a Trivia web application because web application is the most easy
 
 Player will know the choice right or wrong immediately, the timer will stop until the player click next button.
 
+## Jest and Puppeteer for test
+![Test1](/img/pass-test.png)
+
+I use end to end(e2e) total random test. Cause the logic of this project is all about DOM, it is hard to do the unit testing. So I choise total random test to test this project. I write a test program randomly do all all possible operations and run it multiple time. It maybe not get good code coverage for each time test, but run it multiple time can make up this weakness and test the stability. 
+
 ## Code Challenge Form Tandem
 This project is code challenge topic form Tandem. All the questions from a given JSON file. I try to read this file without modify so you can see I do a asynchronous call when at the code.
