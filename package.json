@@ -18,6 +18,7 @@
   "homepage": "https://github.com/huangca/MyTrivia#readme",
   "devDependencies": {
     "jest": "^26.6.1",
-    "puppeteer": "^5.4.1"
+    "puppeteer": "^5.4.1",
+    "puppeteer-to-istanbul": "^1.4.0"
   }
 }

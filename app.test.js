@@ -1,15 +1,21 @@
 const puppeteer = require('puppeteer');
 
 test('should create an element with text and correct class', async () => {
+    const pti = require('puppeteer-to-istanbul')
     const browser = await puppeteer.launch({
       headless: true,
       // slowMo: 80,
        //args: ['--window-size=1920,1080']
     });
     const page = await browser.newPage();
+    await Promise.all([
+        page.coverage.startJSCoverage(),
+       // page.coverage.startCSSCoverage()
+      ]);
     await page.goto(
       'http://127.0.0.1:5500/index.html'
     );
+    
     //first click
     await page.click('#start-btn');
 
@@ -67,4 +73,10 @@ test('should create an element with text and correct class', async () => {
             break;
         }
     }
+    const [jsCoverage] = await Promise.all([
+        page.coverage.stopJSCoverage(),
+        //page.coverage.stopCSSCoverage(),
+      ]);
+      pti.write([...jsCoverage], { includeHostname: true , storagePath: './.nyc_output' })
+    await browser.close()
   }, 10000);
