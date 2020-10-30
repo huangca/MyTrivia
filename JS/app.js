@@ -2,7 +2,7 @@ const startButton = document.getElementById('start-btn');
 const nextButton=document.getElementById('next-btn');
 const resultButton=document.getElementById('result-btn');
 const skipButton=document.getElementById('skip-btn');
-const fiftyButton=document.getElementById('50-btn');
+const fiftyButton=document.getElementById('fifty-btn');
 const questionContainer = document.getElementById('question-container');
 const questions=document.getElementById('question');
 const resultDisplay=document.getElementById('scoreContainer');
@@ -70,12 +70,15 @@ function showQuestion(){
   });
   tempAanswerArray.push({text:questionData[currentQuestion].correct,correct:true});
   tempAanswerArray.sort(()=>Math.random()-.5);
+  let i=0;
   tempAanswerArray.forEach(answer=>{
     const button=document.createElement('button');
     button.innerText=answer.text;
     button.classList.add('btn');
     button.classList.add('btn-primary');
     button.classList.add('btn-lg');
+    button.id=`answer${i}`
+    i++;
     button.style.fontSize = "large";
     if(answer.correct){
       button.dataset.correct=answer.correct;
@@ -227,3 +230,4 @@ function loadJSON(callback) {
     };
     xobj.send(null);  
  }
+

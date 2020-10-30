@@ -1,0 +1,23 @@
+{
+  "name": "mytrivia",
+  "version": "1.0.0",
+  "description": "[Live Demo](https://huangca.github.io/MyTrivia/)",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huangca/MyTrivia.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/huangca/MyTrivia/issues"
+  },
+  "homepage": "https://github.com/huangca/MyTrivia#readme",
+  "devDependencies": {
+    "jest": "^26.6.1",
+    "puppeteer": "^5.4.1"
+  }
+}
