@@ -30,7 +30,7 @@ nextButton.addEventListener('click',()=>{
 });
 resultButton.addEventListener('click',resultPage);
 skipButton.addEventListener('click',skipQuestion);
-//fiftyButton.addEventListener('click',fiftyFifty);
+fiftyButton.addEventListener('click',fiftyFifty); 
 
 function startGame(e){
 	loadJSON(function(response) {
