@@ -70,6 +70,8 @@ body.wrong {
   margin-right : 5px;
   background-color: hsl(var(--hue), 100%, 50%);
 }
+
+
 .prog.correct{
   --hue: var(--hue-correct);
 }

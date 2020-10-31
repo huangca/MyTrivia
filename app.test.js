@@ -17,7 +17,12 @@ test('should create an element with text and correct class', async () => {
     );
     
     //first click
+    let oneOrZero = (Math.random()>=0.5)? 1 : 0;
+    if(oneOrZero==0){
     await page.click('#start-btn');
+    }else{
+        await page.click('#multi-btn');
+    }
 
     while(true){
         let ran=Math.floor(Math.random() * (6 - 0)) + 0;
